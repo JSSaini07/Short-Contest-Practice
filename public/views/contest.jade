@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel="stylesheet", href="../bootstrap/dist/css/bootstrap.min.css")  
+    link(rel="stylesheet", href="../css/contest.css")
+    title Welcome
+  body
+  nav.navbar.navbar-light.bg-faded
+    .nav.navbar-nav
+      a.navbar-brand Coding Platform
+      a.nav-item.nav-link.dashboard Dashboard
+      a.nav-item.nav-link.easy Easy
+      a.nav-item.nav-link.medium Medium
+      a.nav-item.nav-link.hard Hard
+      
+  .leftPanel.easyLeft
+    .problemType Easy
+    br
+    br
+    each d in data.easy
+      span.problemName(data-problem=d.content)!=d.name
+  .leftPanel.mediumLeft
+    .problemType Medium
+    br
+    br
+    each d in data.medium
+      span.problemName(data-problem=d.content)!=d.name
+  .leftPanel.hardLeft
+    .problemType Hard
+    br
+    br
+    each d in data.hard
+      span.problemName(data-problem=d.content)!=d.name
+  
+  .mainContent.easyContent
+  
+    
+        
+  script(src='../javascript/jquery.min.js')
+  script(src='../javascript/contest.js')

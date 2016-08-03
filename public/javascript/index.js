@@ -77,23 +77,33 @@ $('.problemDecrement').on('click',function(){
 });
 
 $('.startButton').on('click',function(){
-  easyCount=parseInt($('.easyVal').text());
-  mediumCount=parseInt($('.mediumVal').text());
-  hardCount=parseInt($('.hardVal').text());
-  data={
-    problems:[easyCount,mediumCount,hardCount],
-    timer:timer
-  }
-  $.ajax({
-    url:'/fetchContent',
-    method:'POST',
-    data:data,
-    success:function(){
-      console.log('request completed');
+  if(!$(this).hasClass('disabled')){
+    easyCount=parseInt($('.easyVal').text());
+    mediumCount=parseInt($('.mediumVal').text());
+    hardCount=parseInt($('.hardVal').text());
+    data={
+      problems:[easyCount,mediumCount,hardCount],
+      timer:timer
     }
-  });
-})
-
+    $.ajax({
+      url:'/fetchContent',
+      method:'POST',
+      data:data,
+      success:function(result){
+        x=document.createElement('form');
+        x.setAttribute('method','POST');
+        x.setAttribute('action','/contest');
+        y=document.createElement('input');
+        y.name='data';
+        y.value=result;
+        x.appendChild(y);
+        $(x).css({'display':'none'});
+        $('body')[0].appendChild(x);
+        $('body')[0].getElementsByTagName('form')[0].submit();
+      }
+    });
+  }
+});
 
 $('document').ready(function(){
   var sliderHeld=-1;
