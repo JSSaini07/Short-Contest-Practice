@@ -10,7 +10,6 @@ $('document').ready(function(){
       $('.easy').addClass('active');
       $($('.easyLeft').children()[3]).addClass('selected');
       $('.mainContent').html($($('.easyLeft').children()[3]).data('problem'));
-      pass=1;
   }
   if($($('.mediumLeft')).children().length<=3)
   {
