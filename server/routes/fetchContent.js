@@ -37,7 +37,8 @@ function fetchProblems(count,fileName,problemsArray) {
   fs.readFile('./public/problemsList/'+fileName+'.txt',function(err,data){
     data=data.toString();
     data=data.split(',');
-    for(i=0;i<count;i++)
+    i=0;
+    while(i<count)
     {
       problemNumber=parseInt((Math.random()*10000)%(data.length-1));
       problem=data[problemNumber];
@@ -45,11 +46,17 @@ function fetchProblems(count,fileName,problemsArray) {
         url: 'https://www.codechef.com/api/contests/PRACTICE/problems/'+problem,
         method: "GET",
       },function(error,response,body) {
-        problemObject=JSON.parse(body);
-        name=problemObject.problem_code;
-        content=problemObject.body;
-        problemsArray.push({'name':name,'content':content});
+        err=0;
+        try{
+          problemObject=JSON.parse(body);
+        }catch(e){err=1;i--;}
+        if(err==0){
+          name=problemObject.problem_code;
+          content=problemObject.body;
+          problemsArray.push({'name':name,'content':content});
+        }
       });
+      i++;
     }
   });
 }
