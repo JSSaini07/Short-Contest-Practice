@@ -1,0 +1,56 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(rel="stylesheet", href="../bootstrap/dist/css/bootstrap.min.css")  
+    link(rel="stylesheet", href="../css/index.css")
+    title Welcome
+  body
+  nav.navbar.navbar-light.bg-inverse
+      .nav.navbar-nav
+        a.nav-item.nav-link.active(href='#') Code Platform
+    center
+      br
+      .difficultyText.text Select Difficulty Level
+      br
+      .difficultyLevel.text 
+        .row
+          .col-lg-4.easy
+            .btn.btn-success.problemButton Easy
+            .easyVal.problemCounter 0
+            .easyIncrement.problemIncrement +
+            .easyDecrement.problemDecrement -
+          .col-lg-4.medium
+            .btn.btn-primary.problemButton Medium
+            .mediumVal.problemCounter 0
+            .mediumIncrement.problemIncrement +
+            .mediumDecrement.problemDecrement -
+          .col-lg-4.hard
+            .btn.btn-warning.problemButton Hard
+            .hardVal.problemCounter 0
+            .hardIncrement.problemIncrement +
+            .hardDecrement.problemDecrement -
+      br
+      .errorMessage.text-danger A maximum of 10 problems are allowed
+      hr 
+      br 
+      .timerText.text Set a timer
+      br
+      .timer
+        .timerBody
+          .timerSlide
+            .timerHandle
+        .dragArea
+      br
+      hr
+      .time
+      br
+      .timeText Current Alloted Time
+      br
+      h2.timeValue
+      br
+      .btn.btn-success.startButton.disabled Start!
+  script(src='../javascript/jquery.min.js')
+  script(src='../javascript/index.js')
