@@ -65,7 +65,8 @@ router.post('/routine',function(req,res){
             for(i=0;i<n;i++)
               {
                 str=$($('tr')[i]).html();
-                if(str.indexOf(problemName)>0&&str.indexOf('tick-icon.gif')>0){
+                if(str.indexOf('/'+problemName+'"')>0&&str.indexOf('tick-icon.gif')>0){
+                  console.log(str);
                   solved=1;
                   break;
                 }

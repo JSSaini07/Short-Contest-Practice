@@ -77,6 +77,7 @@ html,body {
   overflow-y:scroll;
   padding-top: 20px;
   padding-left:20px;
+  padding-bottom:20px;
 }
 
 .selected {
@@ -135,7 +136,7 @@ html,body {
 }
 
 .completed {
-  background:rgb(13, 245, 44); 
+  background:rgb(13, 245, 44);
 }
 
 @font-face {

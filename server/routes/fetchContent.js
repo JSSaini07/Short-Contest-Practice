@@ -57,6 +57,15 @@ function fetchProblems(count,fileName,problemsArray) {
         if(err==0){
           name=problemObject.problem_code;
           content=problemObject.body;
+          while(content.indexOf('"/download')>=0){
+            console.log('setting new image path');
+            point=content.indexOf('"/download');
+            first=content.substr(0,point);
+            point+=1;
+            first+='https://www.codechef.com';
+            second=content.substr(point,content.length);
+            content=first+second;
+          }
           problemsArray.push({'name':name,'content':content});
         }
       });
