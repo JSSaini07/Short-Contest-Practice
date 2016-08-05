@@ -63,29 +63,11 @@ router.post('/routine',function(req,res){
           req.session.data.completed.hard=completed;
         }
       }
-      console.log(JSON.stringify(req.session.data.completed));
-      easyCompleted=req.session.data.completed.easy.length;
-      mediumCompleted=req.session.data.completed.medium.length;
-      hardCompleted=req.session.data.completed.hard.length;
-      easyTotal=req.session.data.easy.length;
-      mediumTotal=req.session.data.medium.length;
-      hardTotal=req.session.data.hard.length;
-      totalCompleted=String.valueOf()(easyCompleted+mediumCompleted+hardCompleted);
-      total=String.valueOf()(easyTotal+mediumTotal+hardTotal);
-      score=(totalCompleted+'/'+total);
-      res.end(score);
+      console.log(JSON.stringify(req.session.data));
+      res.end(JSON.stringify(req.session.data));
       }
     else {
-      easyCompleted=req.session.data.completed.easy.length;
-      mediumCompleted=req.session.data.completed.medium.length;
-      hardCompleted=req.session.data.completed.hard.length;
-      easyTotal=req.session.data.easy.length;
-      mediumTotal=req.session.data.medium.length;
-      hardTotal=req.session.data.hard.length;
-      totalCompleted=String.valueOf()(easyCompleted+mediumCompleted+hardCompleted);
-      total=String.valueOf()(easyTotal+mediumTotal+hardTotal);
-      score=(totalCompleted+'/'+total);
-      res.end(score);
+      res.end(JSON.stringify(req.session.data));
   }
   });
 });

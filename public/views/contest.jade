@@ -20,13 +20,23 @@ html(lang='en')
       .btn.btn-success.submitSolution Submit Solution
       span.timer!=data.timer
       span.score
+  br
+  center
+    .dashboardArea
+      .dashboardContainer
+        .dashboardUsername!=data.username
+        .dashboardText Questions Completed
+        .dashboardQuestionsCompleted
+      br
+      .btn.btn-primary.closeTest Close Test
+        
       
   .leftPanel.easyLeft
     .problemType Easy
     br
     br
     each d in data.easy
-      span.problemName(data-problem=d.content)!=d.name
+      span.problemName(data-problem=d.content class=d.name)!=d.name
   .leftPanel.mediumLeft
     .problemType Medium
     br

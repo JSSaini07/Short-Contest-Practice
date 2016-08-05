@@ -46,8 +46,10 @@ $($('.hardLeft').children()[3]).text());
   }
   $('.easy').on('click',function(){
     if(!$(this).hasClass('disabled')){
+      $('.mainContent').show();
       $('.active').removeClass('active');
       $(this).addClass('active');
+      $('.dashboardArea').hide();
       $('.mediumLeft').css({'display':'none'});
       $('.hardLeft').css({'display':'none'});
       $('.easyLeft').css({'display':'inline-block'});
@@ -59,8 +61,10 @@ $($('.easyLeft').children()[3]).text());
   });
   $('.medium').on('click',function(){
     if(!$(this).hasClass('disabled')){
+      $('.mainContent').show();
       $('.active').removeClass('active');
       $(this).addClass('active');
+      $('.dashboardArea').hide();
       $('.easyLeft').css({'display':'none'});
       $('.hardLeft').css({'display':'none'});
       $('.mediumLeft').css({'display':'inline-block'});
@@ -72,8 +76,10 @@ $($('.mediumLeft').children()[3]).text());
   });
   $('.hard').on('click',function(){
     if(!$(this).hasClass('disabled')){
+      $('.mainContent').show();
       $('.active').removeClass('active');
       $(this).addClass('active');
+      $('.dashboardArea').hide();
       $('.easyLeft').css({'display':'none'});
       $('.mediumLeft').css({'display':'none'});
       $('.hardLeft').css({'display':'inline-block'});
@@ -96,11 +102,31 @@ $(this).text());
   $('.endTest').on('click',function(){
     $('.active').removeClass('active');
     $('.dashboard').addClass('active');
+    $('mainContent').hide();
+    $('.dashboardArea').show();
+    $('.submitSolution').hide();
+    $('.timer').hide();
+    $('.endTest').hide();
+    $('.easy').hide();
+    $('.medium').hide();
+    $('.hard').hide();
     $.ajax({
       url:'/endTest',
       method:'POST',
     })
-  })
+  });
+  $('.dashboard').on('click',function(){
+    $('.active').removeClass('active');
+    $(this).addClass('active');
+    $('.leftPanel').hide();
+    $('.mainContent').hide();
+    $('.dashboardArea').show();
+  });
+});
+
+$('.closeTest').on('click',function(){
+  $('.endTest').click();
+  location.reload();
 });
 
 function routine() {
@@ -108,7 +134,33 @@ function routine() {
     url:'/routine',
     method:'POST',
     success:function(result){
-      $('.score').text(result);
+      r=JSON.parse(result);
+      easyCompleted=r.completed.easy.length;
+      mediumCompleted=r.completed.medium.length;
+      hardCompleted=r.completed.hard.length;
+      easyTotal=r.easy.length;
+      mediumTotal=r.medium.length;
+      hardTotal=r.hard.length;
+      totalCompleted=String.valueOf()(easyCompleted+mediumCompleted+hardCompleted);
+      total=String.valueOf()(easyTotal+mediumTotal+hardTotal);
+      score=(totalCompleted+'/'+total);
+      if(totalCompleted==total)
+      {
+        $('.endTest').click();
+      }
+      $('.score').text(score);
+      x="";
+      problemTypes=[r.completed.easy,r.completed.medium,r.completed.hard]
+      for(i=0;i<3;i++)
+      {
+        problemsArray=problemTypes[i];
+        for(j=0;j<problemsArray.length;j++)
+        {
+          x+="<div class='questionName'>"+problemsArray[j]+"</div>"
+          $('.'+problemsArray[j]).addClass('completed');
+        }
+      }
+      $('.dashboardQuestionsCompleted').html(x);
     }
   });
 }
@@ -124,7 +176,7 @@ function timer(){
   if(hours==0&&minutes==0&&seconds==0)
   {
     clearInterval(timeInterval);
-    console.log('Test Over');
+    $('.endTest').click();
   }
   else
   if(seconds>0)
