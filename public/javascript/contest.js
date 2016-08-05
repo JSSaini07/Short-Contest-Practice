@@ -127,6 +127,7 @@ $(this).text());
 $('.closeTest').on('click',function(){
   $('.endTest').click();
   location.reload();
+  console.log('clicked on close test');
 });
 
 function routine() {
@@ -146,6 +147,7 @@ function routine() {
       score=(totalCompleted+'/'+total);
       if(totalCompleted==total)
       {
+        console.log('all problems done');
         $('.endTest').click();
       }
       $('.score').text(score);
@@ -187,6 +189,7 @@ function timer(){
   if(hours==0&&minutes==0&&seconds==0)
   {
     clearInterval(timeInterval);
+    console.log('time over');
     $('.endTest').click();
   }
   else
