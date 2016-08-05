@@ -2,7 +2,12 @@
 var express=require('express');
 var router = express.Router();
 router.get('/',function(req,res){
-  res.render('index');
+  if(req.session.data!=undefined){
+    res.render('contest');
+  }
+  else {
+    res.render('index');
+  }
 });
 
 module.exports=router;

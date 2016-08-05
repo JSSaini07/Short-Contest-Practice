@@ -1,10 +1,16 @@
 
 var express=require('express');
+var request=require('request');
 var router = express.Router();
-router.post('/contest',function(req,res){
-  body=req.body.data;
-  body=JSON.parse(body);
-  res.render('contest',{data:{'easy':body.easy,'medium':body.medium,'hard':body.hard,'timer':body.timer}});
+router.get('/contest',function(req,res){
+  body=req.session.data;
+  if(body==undefined)
+  {
+    res.redirect('/');
+  }
+  else {
+    res.render('contest',{data:{'username':body.username,'easy':body.easy,'medium':body.medium,'hard':body.hard,'timer':body.timer}});
+  }
 });
 
 module.exports=router;

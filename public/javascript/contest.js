@@ -1,6 +1,8 @@
 
 $('document').ready(function(){
   pass=0;
+  totalProblems=$('.easyLeft').children().length+$('.mediumLeft').children().length+$('.hardLeft').children().length-9;
+  $('.score').text('0/'+totalProblems);
   if($($('.easyLeft')).children().length<=3)
   {
     $('.easy').addClass('disabled');
@@ -10,6 +12,8 @@ $('document').ready(function(){
       $('.easy').addClass('active');
       $($('.easyLeft').children()[3]).addClass('selected');
       $('.mainContent').html($($('.easyLeft').children()[3]).data('problem'));
+      $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$($('.easyLeft').children()[3]).text());
   }
   if($($('.mediumLeft')).children().length<=3)
   {
@@ -22,6 +26,8 @@ $('document').ready(function(){
       $('.easyLeft').css({'display':'none'});
       $('.mediumLeft').css({'display':'inline-block'});
       $('.mainContent').html($($('.mediumLeft').children()[3]).data('problem'));
+      $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$($('.mediumLeft').children()[3]).text());
       pass=0;
   }
   if($($('.hardLeft')).children().length<=3)
@@ -35,6 +41,8 @@ $('document').ready(function(){
     $('.easyLeft').css({'display':'none'});
     $('.hardLeft').css({'display':'inline-block'});
     $('.mainContent').html($($('.hardLeft').children()[3]).data('problem'));
+    $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$($('.hardLeft').children()[3]).text());
   }
   $('.easy').on('click',function(){
     if(!$(this).hasClass('disabled')){
@@ -45,6 +53,8 @@ $('document').ready(function(){
       $('.easyLeft').css({'display':'inline-block'});
       $($('.easyLeft').children()[3]).addClass('selected');
       $('.mainContent').html($($('.easyLeft').children()[3]).data('problem'));
+      $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$($('.easyLeft').children()[3]).text());
     }
   });
   $('.medium').on('click',function(){
@@ -56,6 +66,8 @@ $('document').ready(function(){
       $('.mediumLeft').css({'display':'inline-block'});
       $($('.mediumLeft').children()[3]).addClass('selected');
       $('.mainContent').html($($('.mediumLeft').children()[3]).data('problem'));
+      $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$($('.mediumLeft').children()[3]).text());
     }
   });
   $('.hard').on('click',function(){
@@ -67,11 +79,74 @@ $('document').ready(function(){
       $('.hardLeft').css({'display':'inline-block'});
       $($('.hardLeft').children()[3]).addClass('selected');
       $('.mainContent').html($($('.hardLeft').children()[3]).data('problem'));
+      $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$($('.hardLeft').children()[3]).text());
     }
   });
   $('.problemName').on('click',function(){
     $('.selected').removeClass('selected');
     $(this).addClass('selected');
     $('.mainContent').html($(this).data('problem'));
+    $('.submitSolution').data('link','https://www.codechef.com/submit/'+
+$(this).text());
   });
+  $('.submitSolution').on('click',function(){
+    problemWindow=window.open($(this).data('link'));
+  });
+  $('.endTest').on('click',function(){
+    $('.active').removeClass('active');
+    $('.dashboard').addClass('active');
+    $.ajax({
+      url:'/endTest',
+      method:'POST',
+    })
+  })
 });
+
+function routine() {
+  $.ajax({
+    url:'/routine',
+    method:'POST',
+    success:function(result){
+      $('.score').text(result);
+    }
+  });
+}
+
+interval=setInterval(function(){routine()},5000);
+
+function timer(){
+  time=$('.timer').text();
+  time=time.split(":");
+  hours=parseInt(time[0]);
+  minutes=parseInt(time[1]);
+  seconds=parseInt(time[2]);
+  if(hours==0&&minutes==0&&seconds==0)
+  {
+    clearInterval(timeInterval);
+    console.log('Test Over');
+  }
+  else
+  if(seconds>0)
+  {
+    seconds--;
+  }
+  else
+  if(seconds==0){
+    if(minutes>0)
+    {
+      minutes-=1;
+    }
+    else
+    if(minutes==0){
+      hours-=1;
+    }
+    seconds=59;
+  }
+  time=[hours,minutes,seconds];
+  time=time.join(':');
+  seconds--;
+  $('.timer').text(time);
+}
+
+timeInterval=setInterval(function(){timer()},1000);

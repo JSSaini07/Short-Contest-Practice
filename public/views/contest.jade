@@ -8,6 +8,7 @@ html(lang='en')
     link(rel="stylesheet", href="../css/contest.css")
     title Welcome
   body
+  .username!=data.username
   nav.navbar.navbar-light.bg-faded
     .nav.navbar-nav
       a.navbar-brand Coding Platform
@@ -15,6 +16,10 @@ html(lang='en')
       a.nav-item.nav-link.easy Easy
       a.nav-item.nav-link.medium Medium
       a.nav-item.nav-link.hard Hard
+      .btn.btn-danger.endTest End Test
+      .btn.btn-success.submitSolution Submit Solution
+      span.timer!=data.timer
+      span.score
       
   .leftPanel.easyLeft
     .problemType Easy

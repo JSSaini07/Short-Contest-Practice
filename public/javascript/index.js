@@ -36,6 +36,18 @@ function convertTime(t)
   return hours+" hours and "+minutes+" minutes ";
 }
 
+function calculateTime(t)
+{
+  if(t<0||t>360)
+  {
+    t=360;
+  }
+  hours=parseInt(t/60);
+  minutes=parseInt(t%60);
+  return hours+':'+minutes+':0';
+}
+
+
 window.onresize=function(){
   calculateScale();
   timer=(posX-offset+20)*scale;
@@ -78,31 +90,30 @@ $('.problemDecrement').on('click',function(){
 
 $('.startButton').on('click',function(){
   if(!$(this).hasClass('disabled')){
-    easyCount=parseInt($('.easyVal').text());
-    mediumCount=parseInt($('.mediumVal').text());
-    hardCount=parseInt($('.hardVal').text());
-    data={
-      problems:[easyCount,mediumCount,hardCount],
-      timer:timer
-    }
-    $.ajax({
-      url:'/fetchContent',
-      method:'POST',
-      data:data,
-      success:function(result){
-        x=document.createElement('form');
-        x.setAttribute('method','POST');
-        x.setAttribute('action','/contest');
-        y=document.createElement('input');
-        y.name='data';
-        y.value=result;
-        x.appendChild(y);
-        $(x).css({'display':'none'});
-        $('body')[0].appendChild(x);
-        $('body')[0].getElementsByTagName('form')[0].submit();
-      }
+    $('.mainDiv').slideUp(600,function(){
+      $('.confirmLogin').slideDown(600);
     });
   }
+});
+
+$('.beginContest').on('click',function(){
+  username=$('.usernameInput').val();
+  easyCount=parseInt($('.easyVal').text());
+  mediumCount=parseInt($('.mediumVal').text());
+  hardCount=parseInt($('.hardVal').text());
+  data={
+    username:username,
+    problems:[easyCount,mediumCount,hardCount],
+    timer:calculateTime((posX-offset+20)*scale)
+  }
+  $.ajax({
+        url:'/fetchContent',
+        method:'POST',
+        data:data,
+        success:function(result){
+          window.location='/contest';
+        }
+      });
 });
 
 $('document').ready(function(){

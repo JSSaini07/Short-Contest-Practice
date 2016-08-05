@@ -12,45 +12,65 @@ html(lang='en')
       .nav.navbar-nav
         a.nav-item.nav-link.active(href='#') Code Platform
     center
-      br
-      .difficultyText.text Select Difficulty Level
-      br
-      .difficultyLevel.text 
-        .row
-          .col-lg-4.easy
-            .btn.btn-success.problemButton Easy
-            .easyVal.problemCounter 0
-            .easyIncrement.problemIncrement +
-            .easyDecrement.problemDecrement -
-          .col-lg-4.medium
-            .btn.btn-primary.problemButton Medium
-            .mediumVal.problemCounter 0
-            .mediumIncrement.problemIncrement +
-            .mediumDecrement.problemDecrement -
-          .col-lg-4.hard
-            .btn.btn-warning.problemButton Hard
-            .hardVal.problemCounter 0
-            .hardIncrement.problemIncrement +
-            .hardDecrement.problemDecrement -
-      br
-      .errorMessage.text-danger A maximum of 10 problems are allowed
-      hr 
-      br 
-      .timerText.text Set a timer
-      br
-      .timer
-        .timerBody
-          .timerSlide
-            .timerHandle
-        .dragArea
-      br
-      hr
-      .time
-      br
-      .timeText Current Alloted Time
-      br
-      h2.timeValue
-      br
-      .btn.btn-success.startButton.disabled Start!
+      .mainDiv
+        br
+        .difficultyText.text Select Difficulty Level
+        br
+        .difficultyLevel.text 
+          .row
+            .col-lg-4.easy
+              .btn.btn-success.problemButton Easy
+              .easyVal.problemCounter 0
+              .easyIncrement.problemIncrement +
+              .easyDecrement.problemDecrement -
+            .col-lg-4.medium
+              .btn.btn-primary.problemButton Medium
+              .mediumVal.problemCounter 0
+              .mediumIncrement.problemIncrement +
+              .mediumDecrement.problemDecrement -
+            .col-lg-4.hard
+              .btn.btn-warning.problemButton Hard
+              .hardVal.problemCounter 0
+              .hardIncrement.problemIncrement +
+              .hardDecrement.problemDecrement -
+        br
+        .errorMessage.text-danger A maximum of 10 problems are allowed
+        hr 
+        br 
+        .timerText.text Set a timer
+        br
+        .timer
+          .timerBody
+            .timerSlide
+              .timerHandle
+          .dragArea
+        br
+        hr
+        .time
+        br
+        .timeText Current Alloted Time
+        br
+        h2.timeValue
+        br
+        .btn.btn-success.startButton.disabled Start!
+      .confirmLogin 
+        br 
+        br
+        br
+        br
+        span.login 
+          kbd Make sure you are logged into your
+            a(href='https://www.codechef.com/' target='new')  codechef account
+        br
+        br
+        br
+        br
+        input.usernameInput(type='text' placeholder='Enter you codechef username')
+        br
+        br
+        span.usernameWarning.bg-warning Enter your correct username, without this you won't be awarded any points
+        br
+        br
+        .btn.btn-success.beginContest Start
   script(src='../javascript/jquery.min.js')
   script(src='../javascript/index.js')

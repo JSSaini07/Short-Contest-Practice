@@ -5,32 +5,35 @@ var fs=require('fs');
 
 var router = express.Router();
 router.post('/fetchContent',function(req,res){
+  username=req.body.username;
   problems=req.body.problems;
   timer=req.body.timer;
   easyProblems=[];
   mediumProblems=[];
   hardProblems=[];
+  loggedIn=1;
   fetchProblems(problems[0],'easy',easyProblems);
   fetchProblems(problems[1],'medium',mediumProblems);
   fetchProblems(problems[2],'hard',hardProblems);
-  flag=-1;
   interval=setInterval(function(){
     if(easyProblems.length==problems[0]&&mediumProblems.length==problems[1]&&hardProblems.length==problems[2])
     {
-      sendResponse(res,easyProblems,mediumProblems,hardProblems);
+      sendResponse(req,res,username,easyProblems,mediumProblems,hardProblems);
       clearInterval(interval);
     }
   },1000);
 });
 
-function sendResponse(res,easyProblems,mediumProblems,hardProblems) {
+function sendResponse(req,res,username,easyProblems,mediumProblems,hardProblems) {
   data={
+    username:username,
     easy:easyProblems,
     medium:mediumProblems,
     hard:hardProblems,
     timer:timer
   };
-  res.end(JSON.stringify(data));
+  req.session.data=data;
+  res.end();
 }
 
 function fetchProblems(count,fileName,problemsArray) {
@@ -49,7 +52,7 @@ function fetchProblems(count,fileName,problemsArray) {
         err=0;
         try{
           problemObject=JSON.parse(body);
-        }catch(e){err=1;i--;}
+        }catch(e){err=1;i--;console.log('problem');}
         if(err==0){
           name=problemObject.problem_code;
           content=problemObject.body;
