@@ -161,6 +161,17 @@ function routine() {
         }
       }
       $('.dashboardQuestionsCompleted').html(x);
+      validTime=r.timer;
+      validMinutes=parseInt($('.timer').text().split(':')[1]);
+      checkMinutes=validTime.split(':')[1];
+      validSeconds=parseInt($('.timer').text().split(':')[2]);
+      checkSeconds=validTime.split(':')[2];
+      valueMinutes=(Math.max(validMinutes,checkMinutes)-Math.min(validMinutes,checkMinutes))*60;
+      valueSeconds=(Math.max(validSeconds,checkSeconds)-Math.min(validSeconds,checkSeconds));
+      value=Math.max(valueMinutes,valueSeconds)-Math.min(valueMinutes,valueSeconds);
+      if($('.timer').text()!=validTime&&value>10){
+        $('.timer').text(validTime);
+      }
     }
   });
 }

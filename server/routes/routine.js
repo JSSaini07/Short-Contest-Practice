@@ -19,6 +19,31 @@ router.post('/routine',function(req,res){
     method: "GET",
   },function(error,response,body) {
     err=0;
+    time=req.session.data.savedTimer.split(':');
+    hours=time[0];
+    minutes=time[1];
+    seconds=time[2];
+    console.log(hours+" "+minutes+" "+seconds);
+    if(seconds>=5)
+    {
+      seconds-=5;
+    }
+    else {
+      if(minutes>=1)
+      {
+        minutes-=1;
+        seconds=55;
+      }
+      else
+      if(hours>=1){
+        hours-=1;
+      }
+    }
+    console.log(hours+" "+minutes+" "+seconds);
+    time=[hours,minutes,seconds];
+    time=time.join(':');
+    req.session.data.timer=time;
+    req.session.data.savedTimer=time;
     try{
       body=JSON.parse(body);
     }catch(e){err=1;}
@@ -63,7 +88,6 @@ router.post('/routine',function(req,res){
           req.session.data.completed.hard=completed;
         }
       }
-      console.log(JSON.stringify(req.session.data));
       res.end(JSON.stringify(req.session.data));
       }
     else {

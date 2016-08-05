@@ -30,7 +30,8 @@ function sendResponse(req,res,username,easyProblems,mediumProblems,hardProblems)
     easy:easyProblems,
     medium:mediumProblems,
     hard:hardProblems,
-    timer:timer
+    timer:timer,
+    savedTimer:timer
   };
   req.session.data=data;
   res.end();
